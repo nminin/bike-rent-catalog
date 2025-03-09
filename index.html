@@ -47,7 +47,7 @@
 
   function alertUserData() {
     if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
-      alert(JSON.stringify(Telegram.WebApp.initDataUnsafe, null, 2));
+      Telegram.WebApp.showAlert(JSON.stringify(Telegram.WebApp.initDataUnsafe, null, 2));
     } else {
       alert("User data недоступны");
     }
