@@ -36,8 +36,11 @@
   }
 
   function alertMessage() {
-    Telegram.WebApp.sendData(`asdasdasdasdasdas ${Telegram.WebApp.initData}`)
-    // alert("Привет, Telegram!");
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
+      alert(JSON.stringify(Telegram.WebApp.initDataUnsafe, null, 2));
+    } else {
+      alert("User data недоступны");
+    }
   }
 
   function changeBackground() {
