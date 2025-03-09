@@ -60,7 +60,7 @@
       //   id: user.id,
       //   name: user.first_name + (user.last_name ? ' ' + user.last_name : '')
       // };
-      Telegram.WebApp.postEvent('custom_event', "JSON.stringify(userData)");
+      Telegram.WebApp.sendData("JSON.stringify(userData)");
       alert("asdasdasd")
     } else {
       alert("Не удалось получить данные пользователя");
