@@ -27,6 +27,8 @@
 <button onclick="closeWebApp()">Закрыть</button>
 <button onclick="alertMessage()">Показать сообщение</button>
 <button onclick="changeBackground()">Изменить фон</button>
+<button onclick="alertUserData()">Показать user data</button>
+<button onclick="sendUserDataToBot()">Отправить имя и ID</button>
 
 <script>
   function closeWebApp() {
@@ -36,16 +38,32 @@
   }
 
   function alertMessage() {
+    alert("Привет, Telegram!");
+  }
+
+  function changeBackground() {
+    document.body.style.backgroundColor = "#d1e8ff";
+  }
+
+  function alertUserData() {
     if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
       alert(JSON.stringify(Telegram.WebApp.initDataUnsafe, null, 2));
-
     } else {
       alert("User data недоступны");
     }
   }
 
-  function changeBackground() {
-    Telegram.WebApp.sendData("asdasdasdasd")
+  function sendUserDataToBot() {
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user) {
+      const user = Telegram.WebApp.initDataUnsafe.user;
+      const userData = {
+        id: user.id,
+        name: user.first_name + (user.last_name ? ' ' + user.last_name : '')
+      };
+      Telegram.WebApp.sendData(JSON.stringify(userData));
+    } else {
+      alert("Не удалось получить данные пользователя");
+    }
   }
 </script>
 </body>
