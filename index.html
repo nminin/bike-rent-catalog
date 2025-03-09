@@ -27,25 +27,26 @@
 
 <script>
   // Ensure Telegram Web App API is initialized
-  window.TelegramWebApp.onEvent('mainButtonClicked', function() {
-    // This event fires when the Telegram Web App API is initialized
-    // Try accessing the user data after the event is triggered
-    const userData = window.TelegramWebApp.initDataUnsafe;
+  window.TelegramWebApp.onEvent('visibilityChanged', function() {
+    // Only proceed once the Web App is fully visible and initialized
+    if (window.TelegramWebApp.initDataUnsafe) {
+      const userData = window.TelegramWebApp.initDataUnsafe;
 
-    // Check if the data is available
-    if (userData) {
-      const userId = userData.user.id;
-      const firstName = userData.user.first_name;
-      const lastName = userData.user.last_name || 'N/A';  // Some users may not have a last name
-      const username = userData.user.username || 'N/A';  // Some users may not have a username
+      // Check if the data is available
+      if (userData) {
+        const userId = userData.user.id;
+        const firstName = userData.user.first_name;
+        const lastName = userData.user.last_name || 'N/A';  // Some users may not have a last name
+        const username = userData.user.username || 'N/A';  // Some users may not have a username
 
-      // Update the UI with user data
-      document.getElementById('user-id').innerText = userId;
-      document.getElementById('user-first-name').innerText = firstName;
-      document.getElementById('user-last-name').innerText = lastName;
-      document.getElementById('user-username').innerText = username;
-    } else {
-      console.error("User data not available.");
+        // Update the UI with user data
+        document.getElementById('user-id').innerText = userId;
+        document.getElementById('user-first-name').innerText = firstName;
+        document.getElementById('user-last-name').innerText = lastName;
+        document.getElementById('user-username').innerText = username;
+      } else {
+        console.error("User data not available.");
+      }
     }
   });
 
