@@ -55,13 +55,13 @@
 
   function sendUserDataToBot() {
     if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user) {
-      const user = Telegram.WebApp.initDataUnsafe.user;
-      const userData = {
-        id: user.id,
-        name: user.first_name + (user.last_name ? ' ' + user.last_name : '')
-      };
-      Telegram.WebApp.postEvent('custom_event', JSON.stringify(userData));
-      alert(JSON.stringify(userData))
+      // const user = Telegram.WebApp.initDataUnsafe.user;
+      // const userData = {
+      //   id: user.id,
+      //   name: user.first_name + (user.last_name ? ' ' + user.last_name : '')
+      // };
+      Telegram.WebApp.postEvent('custom_event', "JSON.stringify(userData)");
+      alert("asdasdasd")
     } else {
       alert("Не удалось получить данные пользователя");
     }
