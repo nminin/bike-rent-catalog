@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Telegram Web App Example</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #user-data p {
+      color: red;
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>Welcome to the Telegram Web App</h1>
+<h1 style="color: red;">Welcome to the Telegram Web App</h1>
 
 <div id="user-data">
   <p><strong>User ID:</strong> <span id="user-id">Loading...</span></p>
@@ -20,26 +27,30 @@
 
 <script>
   // Ensure Telegram Web App API is initialized
-  window.TelegramWebApp.init;
+  window.TelegramWebApp.onEvent('mainButtonClicked', function() {
+    // This event fires when the Telegram Web App API is initialized
+    // Try accessing the user data after the event is triggered
+    const userData = window.TelegramWebApp.initDataUnsafe;
 
-  // Get user data from Telegram Web App API
-  const userData = window.TelegramWebApp.initData;
+    // Check if the data is available
+    if (userData) {
+      const userId = userData.user.id;
+      const firstName = userData.user.first_name;
+      const lastName = userData.user.last_name || 'N/A';  // Some users may not have a last name
+      const username = userData.user.username || 'N/A';  // Some users may not have a username
 
-  // Check if the data is available
-  if (userData) {
-    const userId = userData.user.id;
-    const firstName = userData.user.first_name;
-    const lastName = userData.user.last_name || 'N/A';  // Some users may not have a last name
-    const username = userData.user.username || 'N/A';  // Some users may not have a username
+      // Update the UI with user data
+      document.getElementById('user-id').innerText = userId;
+      document.getElementById('user-first-name').innerText = firstName;
+      document.getElementById('user-last-name').innerText = lastName;
+      document.getElementById('user-username').innerText = username;
+    } else {
+      console.error("User data not available.");
+    }
+  });
 
-    // Update the UI with user data
-    document.getElementById('user-id').innerText = userId;
-    document.getElementById('user-first-name').innerText = firstName;
-    document.getElementById('user-last-name').innerText = lastName;
-    document.getElementById('user-username').innerText = username;
-  } else {
-    console.error("User data not available.");
-  }
+  // Initialize Telegram Web App API
+  window.TelegramWebApp.init();
 </script>
 
 </body>
